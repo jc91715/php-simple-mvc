@@ -1,6 +1,6 @@
 <?php
 
-class indexController
+class indexController extends basicController
 {
 
     public function index()
@@ -13,6 +13,8 @@ class indexController
 
 
         view('index',compact('arr','val'));
+
+
 
 
     }
