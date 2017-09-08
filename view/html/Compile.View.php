@@ -10,8 +10,8 @@ class Compile extends View
     private $T_R = array();
 
     public function init(){
-        $this->templatePath='view/template/';
-        $this->compilePath='view/compile/';
+        $this->templatePath='view/html/template/';
+        $this->compilePath='view/html/compile/';
         //{$var}
         $this->T_P[] = "/\{\\$([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\}/";
         //{foreach $b}或者{loop $b}

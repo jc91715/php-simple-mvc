@@ -10,10 +10,10 @@ function my_autoloader($class) {
             include 'model/'.$class.'.php';
             break;
         case substr($class,-7)=='Compile':
-            include 'view/'.$class.'.View'.'.php';
+            include 'view/html/'.$class.'.View'.'.php';
             break;
         case substr($class,-4)=='View':
-            include 'view/'.$class.'.php';
+            include 'view/html/'.$class.'.php';
             break;
         default:
             include 'controllers/indexContrpller.php';
@@ -25,6 +25,12 @@ spl_autoload_register('my_autoloader');
 
 function view($path,$paras=[]){
     extract($paras);
-    $compileFile=Compile::instance()->display($path);
-    include $compileFile;
+
+    if(file_exists('view/php/'.$path.'.view'.'.php')){
+        $path='view/php/'.$path.'.view'.'.php';
+    }else{
+        $path=Compile::instance()->display($path);
+
+    }
+    include $path;
 }
