@@ -15,6 +15,9 @@ function my_autoloader($class) {
         case substr($class,-4)=='View':
             include 'view/html/'.$class.'.php';
             break;
+        case substr($class,-6)=='Widget':
+            include 'widget/'.$class.'.php';
+            break;
         default:
             include 'controllers/indexContrpller.php';
 
@@ -28,14 +31,23 @@ function view($path,$paras=[]){
 
     if(file_exists('view/php/'.$path.'.view'.'.php')){
         $path='view/php/'.$path.'.view'.'.php';
-    }else{
+    }elseif(file_exists($path)){
+        $path=$path;
+    }
+    else{
         $path=Compile::instance()->display($path);
 
     }
     include $path;
 }
 
+function w($path,$val){
+    $arr=explode('.',$path);
+    $widgetClass=$arr[0];
+    $widgerClass=$widgetClass.'Widget';
 
+    new $widgerClass($arr,$val);
+}
 
 class Container
 {
