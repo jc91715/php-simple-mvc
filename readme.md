@@ -25,6 +25,7 @@ eg
 eg
 
     //controllers/indexController.php
+    <?php
     
     class indexController extends basicController
     
@@ -57,7 +58,8 @@ eg
 eg
  
     //model/userModel
- 
+    <?php
+    
     class userModel extends baseModel
     {
         public function __construct()
@@ -108,6 +110,9 @@ eg
 1 在控制其中使用
     
   eg
+  
+    //controllers/indexController
+    <?php
     
      class indexController extends basicController
         
