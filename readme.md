@@ -1,14 +1,16 @@
-#一个简单粗糙的MVC(提供基本的功能)
 
-###快速开始
+# 一个简单粗糙的MVC(提供基本的功能)
+
+
+### 快速开始
 
     git clone  https://github.com/jc91715/php-simple-mvc.git project
     
  
-###访问 your.domain.app/
+### 访问 your.domain.app/
 
 
-###路由 /xxxx/xxxxx
+### 路由 /xxxx/xxxxx
 
 
 eg
@@ -16,7 +18,7 @@ eg
     /index/index  映射到 controllers/indexController 下的 index 方法
     
 
-###controller 
+### controller 
 
   在controllers文件下 继承自 basicController
 
@@ -33,7 +35,7 @@ eg
         }
     }
     
-###数据库 配置在 config 文件夹下
+### 数据库 配置在 config 文件夹下
 
 eg
 
@@ -48,7 +50,7 @@ eg
     
   
   
-###model
+### model
  
  在 model 文件夹下 继承 baseModel 提供 增删改查功能
  
@@ -81,7 +83,7 @@ eg
     
     $user->delete($id)
     
-###view  
+### view  
 
 支持原生 php 模板（默认推荐） 和 自定义 html模板(正则匹配是 是引用从php核心技术与最佳实践上的)
     
@@ -100,7 +102,7 @@ eg
     
     {endif}
     
-###使用 view 
+使用 view 
 
 
 在控制其中使用
@@ -140,7 +142,7 @@ eg
      
      
      
-###提供widget 
+### 提供widget 
 
 等等 widget 有什么用 
  
