@@ -6,5 +6,9 @@
             $(this).parent().addClass('active')
         }
     })
+
+    if(window.location.pathname=='/'){
+        $('ul li a:first').parent().addClass('active')
+    }
 </script>
 </html>

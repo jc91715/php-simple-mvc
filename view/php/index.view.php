@@ -9,7 +9,7 @@
         <div style="height: 50px;"></div>
 
         <div class="jumbotron">
-            <h1 class="text-center"><?php echo $title;?> php 原生模板</h1>
+            <h1 class="text-center"><?php echo $title;?></h1>
         </div>
     </div>
 <?php w('index', $title) ?>

@@ -6,9 +6,9 @@ class indexController extends basicController
     public function index()
     {
 
-//        $user=new userModel();
+//        $user=new userModel();// 使用的话请先配置数据库
 
-        $title='index done';
+        $title='index.view.php 原生模板加载成功';
 
 
         view('index',compact('title'));
@@ -20,15 +20,15 @@ class indexController extends basicController
 
     public function create(){
 
-//        $user=new userModel(); 使用的话请先配置数据库
+//        $user=new userModel();
 
-        $title='crated done';
-        view('create',compact('title','user'));
+        $title='create.view.php 加载成功';
+        view('create',compact('title'));
 
     }
     public function show(){
 
-        $title='show down 自定义模板';
+        $title='show.html 自定义模板加载成功';
         view('show',compact('title'));
     }
 }
