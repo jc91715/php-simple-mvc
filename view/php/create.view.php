@@ -1,3 +1,3 @@
-<?php view('header',compact('val'));?>
-
-<?php view('footer');?>
+<?php view('common/header',compact('title'));?>
+<?php //  echo $user['name'];?>
+<?php view('common/footer');?>

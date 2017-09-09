@@ -6,7 +6,7 @@ abstract class basicWidget
     {
 
 
-        $val=$this->display($val);
+        $val=$this->display($path);
 
 
         if(count($path)==1){

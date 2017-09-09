@@ -3,7 +3,7 @@
 <script>
     $('ul li a').each(function () {
         if($(this).attr('href')==window.location.pathname){
-            $(this).parent().addClass('active').siblings().removeClass('active')
+            $(this).parent().addClass('active')
         }
     })
 </script>

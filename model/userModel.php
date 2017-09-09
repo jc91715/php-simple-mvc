@@ -1,10 +1,10 @@
 <?php
 
-class userModel
+class userModel extends baseModel
 {
-    public function all()
+    public function __construct()
     {
-
-
+        parent::__construct();
+        $this->model='users';
     }
 }

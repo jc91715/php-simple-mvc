@@ -7,12 +7,11 @@ class indexController extends basicController
     {
 
         $user=new userModel();
-        $user->all();
-        $arr=['ab','cd','ef'];
-        $val='index done';
+
+        $title='index done';
 
 
-        view('index',compact('arr','val'));
+        view('index',compact('data','title','user'));
 
 
 
@@ -21,12 +20,14 @@ class indexController extends basicController
 
     public function create(){
 
-        $val='crated done';
-        view('create',compact('val'));
+        $user=new userModel();
+
+        $title='crated done';
+        view('create',compact('title','user'));
 
     }
     public function show(){
-        $val='show down';
-        view('show',compact('val'));
+        $title='show down 自定义模板';
+        view('show',compact('title'));
     }
 }

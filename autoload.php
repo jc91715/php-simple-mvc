@@ -25,7 +25,14 @@ function my_autoloader($class) {
 }
 spl_autoload_register('my_autoloader');
 
-
+/*
+ * 功能
+ * 加载视图文件
+ * 在视图中充当include 功能
+ * 加载widget文件
+ *
+ * 默认原生的php模板 如果文件没找到的话 会查看view/html  下是否存在（推荐原生模板）
+ */
 function view($path,$paras=[]){
     extract($paras);
 
@@ -41,6 +48,11 @@ function view($path,$paras=[]){
     include $path;
 }
 
+/*
+ * 在视图中调用加载widget
+ *
+ * eg w('index') 实例化widget下的indexWidget 并加载 widget文件夹下的index.widget.php 如果 w('index.test') 将加载 index文件夹下的 test.widget.php
+ */
 function w($path,$val){
     $arr=explode('.',$path);
     $widgetClass=$arr[0];
@@ -48,7 +60,9 @@ function w($path,$val){
 
     new $widgerClass($arr,$val);
 }
-
+/*
+ * 待用
+ */
 class Container
 {
     protected $binds;
