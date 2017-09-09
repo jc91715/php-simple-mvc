@@ -35,6 +35,13 @@ class baseModel
 
     }
 
+    public function delete($id){
+        $execString='delete from '.$this->model.'where id='.$id;
+
+        return $this->exec($execString);
+
+    }
+
     public function create($array)
     {
 
