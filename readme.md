@@ -85,10 +85,10 @@ eg
     
 ### view  
 
-支持原生 php 模板（默认推荐） 和 自定义 html模板(正则匹配是 是引用从php核心技术与最佳实践上的)
+支持原生 php 模板（默认推荐） 和 自定义 html模板(正则匹配是 是从php核心技术与最佳实践上引用的)
     
     
-    ps: 找不到原生模板的情况下会去找 自定义模
+    ps: 找不到原生模板的情况下会去找 自定义模板
     
     //不推荐使用
     //模板标签
@@ -102,10 +102,10 @@ eg
     
     {endif}
     
-使用 view 
 
 
-在控制其中使用
+
+1 在控制其中使用
     
   eg
     
@@ -125,7 +125,7 @@ eg
         }
         
         
-在视图中使用（为了代码重用  包含header 和 footer等等需要重用的文件）
+2 在视图中使用（为了代码重用  包含header 和 footer等等需要重用的文件）
 
 
 eg 
@@ -135,7 +135,7 @@ eg
     <?php view('common/header', compact('title')); ?> //包含 view/php/common/header.view.php 并传递数据（compact('title') 是从控制器传递过来的）
 
   
-    //view/html/header.view.php
+    //view/php/common/header.view.php
        
        
      <title>jc91715-php-simple-mvc <?php echo $title;?></title>
@@ -183,7 +183,7 @@ eg
     
     
     
-###END
+### END
     
     
 
