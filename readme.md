@@ -57,7 +57,7 @@ eg
  
 eg
  
-    //model/userModel
+    //model/userModel.php
     <?php
     
     class userModel extends baseModel
