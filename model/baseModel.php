@@ -36,10 +36,28 @@ abstract class baseModel
         }
         $arr=[];
         foreach ($data as $model){
-            $arr[]=new static($model);
+            $arr[]=(new static($model));
         }
 
         return $arr;
+
+
+    }
+
+    public function all()
+    {
+        $queryString = 'select * from '.$this->table;
+
+        $data=$this->query($queryString);
+        if($data==null){
+            return null;
+        }
+        $arr=[];
+        foreach ($data as $model){
+            $arr[]=(new static($model));
+        }
+
+        return new static($arr);
 
 
     }
@@ -163,10 +181,22 @@ abstract class baseModel
     }
 
     public function toArray(){
+        if (isset($this->attribute[0]) && is_object($this->attribute[0]))
+        {
+            $arr=[];
+            foreach ($this->attribute as $obj){
+                $arr[]=$obj->toArray();
+            }
+            $this->attribute=$arr;
+        }
         return $this->attribute;
     }
     public function toJson(){
-        return json_encode($this->attribute);
+        if (isset($this->attribute[0]) && is_object($this->attribute[0]))
+        {
+            return json_encode($this->toArray());
+        }
+            return json_encode($this->attribute);
     }
     public function __call($name,$arguments)
     {
@@ -186,10 +216,12 @@ abstract class baseModel
     public function __get($key)
     {
 
+
         $val=$this->attribute[$key]?:null;
 
         if($val==null){
-            return null;
+
+                return null;
         }
 
         $getmethoad='get'.ucwords($key);
