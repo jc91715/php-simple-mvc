@@ -64,12 +64,7 @@ eg
     
     class userModel extends baseModel
     {
-        public function __construct()
-        {
-            parent::__construct();
-            //映射数据库表
-            $this->model='users';
-        }
+        $table='users'//指定表
     }
     
     
@@ -77,15 +72,44 @@ eg
   
     $user=new userModel()
     
-    $user->all()
+    $user->find($id)
+    
+    $user->get()
     
     $user-create($arrayData)
     
-    $user->update($arrayData,$id)
-    
-    $user->find($id)
+    $user->update($arrayData,$id) or $user->find(1)->update($arrayData)
     
     $user->delete($id)
+    
+    //转换为数组
+       $user->find($id)->toArray()
+     //转换为json
+     $user->toJson()
+     
+    //提供了两个简单的hook 如果你取出数据之前需要对数据进行格式化 eg
+    
+    public function getName($val)
+    {
+
+        return ucwords($val);
+    }
+    
+    //如果你插入数据之前需要对数据进行格式化(一个字段需要是json格式的) eg
+    
+    public function setName($val)
+    {
+        return json_encode($val);
+    }
+    
+    //后续可能会有 beforeUpdate() afterUpdate  beforeCreate afterCreate 等等
+    
+    //如果你想在laravel 试试(只是试试而已~~) 可以让 user 继承 basicModel 在构造函数中手动配置下数据库就可以了
+    //$config = include 'config/database.php';
+    $this->dbh = new PDO(
+                "mysql:host=localhost;dbname=xxxx", 'username', 'password']
+                , [PDO::ATTR_PERSISTENT => true]
+            );
     
 ### view  
 

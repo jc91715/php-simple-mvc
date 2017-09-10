@@ -1,42 +1,67 @@
 <?php
 
-class baseModel
+abstract class baseModel
 {
-    public $model;
+    public $table;
     public $dbh;
-    public $config;
-    public $queryString;
-    public $execString;
+    public $attribute;
 
-    public function __construct()
+    public function __construct(Array $array=[])
     {
-        $this->config = include 'config/database.php';
+       $config = include 'config/database.php';
         $this->dbh = new PDO(
-            "mysql:host=localhost;dbname={$this->config['dbname']}", $this->config['username'], $this->config['password']
+            "mysql:host=localhost;dbname={$config['dbname']}", $config['username'], $config['password']
             , [PDO::ATTR_PERSISTENT => true]
         );
+
+        if(!empty($array)){
+            $this->attribute=$array;
+//            $this->model=$this->attribute;
+        }
+
+
+
+        $this->init();
     }
 
-    public function all()
+    public function init(){}
+
+    public function get()
     {
-        $queryString = 'select * from '.$this->model;
+        $queryString = 'select * from '.$this->table;
 
-        return $this->query($queryString);
+        $data=$this->query($queryString);
+        if($data==null){
+            return null;
+        }
+        $arr=[];
+        foreach ($data as $model){
+            $arr[]=new static($model);
+        }
+
+        return $arr;
 
 
     }
+
 
     public function find($id)
     {
-        $queryString = 'select * from '.$this->model.' where id='.$id;
+        $queryString = 'select * from '.$this->table.' where id='.$id;
 
-        return $this->query($queryString)[0];
+        $data=$this->query($queryString);
+
+        if($data==null){
+            return null;
+        }
+//        return $data;
+        return new static($data);
 
 
     }
 
     public function delete($id){
-        $execString='delete from '.$this->model.'where id='.$id;
+        $execString='delete from '.$this->table.'where id='.$id;
 
         return $this->exec($execString);
 
@@ -47,6 +72,13 @@ class baseModel
 
         $kstr = "";
         $vstr = "";
+        foreach ($array as $k => $v){
+            $setmethoad='set'.ucwords($k);
+
+            if(method_exists($this,$setmethoad)){
+                $array[$k]=$this->$setmethoad($v);
+            }
+        }
         foreach ($array as $k => $v) {
             $kstr .= $k.",";
             if (is_string($v)) {
@@ -58,20 +90,31 @@ class baseModel
         $kstr = rtrim($kstr, ",");
         $vstr = rtrim($vstr, ",");
 
-        $execString = sprintf("insert into %s (%s)values(%s)", $this->model, $kstr, $vstr);
-        try {
-            $this->exec($execString);
 
-        } catch (Exception $e) {
-            die("Error!:".$e->getMessage().'<br>');
-        }
+
+        $execString = sprintf("insert into %s (%s)values(%s)", $this->table, $kstr, $vstr);
+        $this->exec($execString);
+
+        return new static($array);
+
 
 
     }
 
-    public function update($array, $id)
+
+
+    public function update($array, $id=null)
     {
+        if($id==null){
+            $id=$this->attribute['id']?:  null;
+
+            if($id==null){
+
+                return '请限定数据';
+            }
+        }
         $str = "";
+
         foreach ($array as $k => $v) {
             if (is_string($v)) {
 
@@ -85,29 +128,87 @@ class baseModel
         }
         $str = rtrim($str, ",");
 
-        $execString = sprintf("update  %s set %s where id=%u", $this->model, $str, $id);
+        $execString = sprintf("update  %s set %s where id=%u", $this->table, $str, $id);
 
-        return $this->exec($execString);
+       $this->exec($execString);
 
+       return $this;
+
+    }
+
+    public function save(){
+        $this->update($this->attribute,$this->attribute['id']);
     }
 
     public function exec($execString)
     {
-        $this->execString = $this->dbh->prepare($execString)->queryString;
-        $count = $this->dbh->exec($this->execString);
+        $count = $this->dbh->exec($execString);
 
         return $count;
     }
 
     public function query($queryString)
     {
-        $this->queryString = $this->dbh->prepare($queryString)->queryString;
-        $data = $this->dbh->query($this->queryString);
-        while ($row = $data->fetch()) {
+        $arr=[];
+        $data = $this->dbh->query($queryString);
+        while ($row = $data->fetch(PDO::FETCH_ASSOC)) {
             $arr[] = $row;
         }
-
+        if(empty($arr)){
+            return null;
+        }
+        if(count($arr)==1){
+            return $arr[0];
+        }
         return $arr;
+    }
+
+    public function toArray(){
+        return $this->attribute;
+    }
+    public function toJson(){
+        return json_encode($this->attribute);
+    }
+    public function __call($name,$arguments)
+    {
+        // TODO: Implement __clone() method.
+        $before=substr($name,0,3);
+        $A=substr($name,3);
+        $a=lcfirst($A);
+        switch ($before)
+        {
+            case 'get':
+                return $this->attribute[$a] ?:$this->attribute[$A];
+        }
+
+    }
+
+
+    public function __get($key)
+    {
+
+        $val=$this->attribute[$key]?:null;
+
+        if($val==null){
+            return null;
+        }
+
+        $getmethoad='get'.ucwords($key);
+        if(method_exists($this,$getmethoad)){
+            return $this->$getmethoad($val);
+        }
+
+        return $this->attribute[$key];
+    }
+
+    public function __set($name, $value)
+    {
+        // TODO: Implement __set() method.
+
+        $this->attribute[$name]=$value;
+//        $this->model=$this->attribute;
+
+        return $this;
     }
 
 }

@@ -2,10 +2,42 @@
 
 class userModel extends baseModel
 {
-    public function __construct()
-    {
-        parent::__construct();
+    public $table='users';
 
-        $this->model='users';
+
+    public function getName($val)
+    {
+
+        return $val.'getsuccess';
+    }
+
+
+    public function setName($val)
+    {
+
+
+        return $val.'setsuccess';
+    }
+
+
+    public function beforeCreate()
+    {
+
+    }
+
+    public function afterCreate()
+    {
+
+    }
+
+
+    public function beforUpdate()
+    {
+
+    }
+
+    public function afterUpdate()
+    {
+
     }
 }
