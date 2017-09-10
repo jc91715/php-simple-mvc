@@ -107,7 +107,7 @@ eg
     
     //后续可能会有 beforeUpdate() afterUpdate  beforeCreate afterCreate 等等
     
-    //如果你想在laravel 试试(只是试试而已~~) 可以让 user 继承 basicModel 在构造函数中手动配置下数据库就可以了
+    //如果你想在laravel 试试(只是试试而已~~) 可以让 user 继承 baseModel 在构造函数中手动配置下数据库就可以了
     //$config = include 'config/database.php';
     $this->dbh = new PDO(
                 "mysql:host=localhost;dbname=xxxx", 'username', 'password']

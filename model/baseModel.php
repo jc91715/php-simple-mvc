@@ -54,7 +54,6 @@ abstract class baseModel
         if($data==null){
             return null;
         }
-//        return $data;
         return new static($data);
 
 
