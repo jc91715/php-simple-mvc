@@ -78,7 +78,10 @@ eg
     
     $user-create($arrayData)
     
-    $user->update($arrayData,$id) or $user->find(1)->update($arrayData)
+    $user->update($arrayData,$id) or $user->find(1)->update($arrayData) or 
+    $user=$user->find($id) 
+    $user->name=xxxx
+    $user->save()
     
     $user->delete($id)
     
