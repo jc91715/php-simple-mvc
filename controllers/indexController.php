@@ -7,8 +7,7 @@ class indexController extends basicController
     {
 
 
-        $user=new userModel();// 使用的话请先配置数据库
-$use=$user->find(1);
+//        $user=new userModel();// 使用的话请先配置数据库
 
 
         $title='index.view.php 原生模板加载成功';
