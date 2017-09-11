@@ -132,6 +132,14 @@ abstract class baseModel
         }
         $str = "";
 
+        foreach ($array as $k => $v){
+            $setmethoad='set'.ucwords($k);
+
+            if(method_exists($this,$setmethoad)){
+                $array[$k]=$this->$setmethoad($v);
+                $this->attribute[$k]=$this->$setmethoad($v);
+            }
+        }
         foreach ($array as $k => $v) {
             if (is_string($v)) {
 
@@ -154,7 +162,7 @@ abstract class baseModel
     }
 
     public function save(){
-        $this->update($this->attribute,$this->attribute['id']);
+        return $this->update($this->attribute,$this->attribute['id']);
     }
 
     public function exec($execString)
@@ -216,12 +224,31 @@ abstract class baseModel
     public function __get($key)
     {
 
+        return $this->getAttribute($key);
 
-        $val=$this->attribute[$key]?:null;
+
+
+    }
+
+    public function __set($name, $value)
+    {
+
+        return $this->setAttribute($name,$value);
+    }
+
+
+
+    public function getAttribute($key)
+    {
+
+        if(array_key_exists($key,$this->attribute)){
+            $val=$this->attribute[$key]?:null;
+
+        };
 
         if($val==null){
 
-                return null;
+            return null;
         }
 
         $getmethoad='get'.ucwords($key);
@@ -229,17 +256,19 @@ abstract class baseModel
             return $this->$getmethoad($val);
         }
 
-        return $this->attribute[$key];
+        return $this;
+
     }
 
-    public function __set($name, $value)
+
+    public function setAttribute($name,$value)
     {
-        // TODO: Implement __set() method.
 
         $this->attribute[$name]=$value;
-//        $this->model=$this->attribute;
+
 
         return $this;
+
     }
 
 }
