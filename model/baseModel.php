@@ -10,7 +10,7 @@ abstract class baseModel
     {
        $config = include 'config/database.php';
         $this->dbh = new PDO(
-            "mysql:host=localhost;dbname={$config['dbname']}", $config['username'], $config['password']
+            "mysql:host=localhost;dbname={$config['dbname']};charset=utf8", $config['username'], $config['password']
             , [PDO::ATTR_PERSISTENT => true]
         );
 
@@ -67,7 +67,8 @@ abstract class baseModel
     {
         $queryString = 'select * from '.$this->table.' where id='.$id;
 
-        $data=$this->query($queryString);
+        $data=$this->query($queryString)[0];
+
 
         if($data==null){
             return null;
@@ -182,9 +183,9 @@ abstract class baseModel
         if(empty($arr)){
             return null;
         }
-        if(count($arr)==1){
-            return $arr[0];
-        }
+//        if(count($arr)==1){
+//            return $arr[0];
+//        }
         return $arr;
     }
 
@@ -256,7 +257,7 @@ abstract class baseModel
             return $this->$getmethoad($val);
         }
 
-        return $this;
+        return $val;
 
     }
 
@@ -267,8 +268,49 @@ abstract class baseModel
         $this->attribute[$name]=$value;
 
 
-        return $this;
+        return $value;
 
     }
+
+
+    public function selectHasMany($hasManyId,$id)
+    {
+        $queryString = 'select * from '.$this->table.' where '.$hasManyId.' ='.$id;
+
+        $data=$this->query($queryString);
+
+
+        if($data==null){
+            return null;
+        }
+
+        $arr=[];
+        foreach ($data as $model){
+            $arr[]=(new static($model));
+        }
+        return $arr;
+    }
+
+
+    public function hasMany($model,$hasManyId)
+    {
+        $m=new $model;
+        $id=$this->id;
+
+        return $m->selectHasMany($hasManyId,$id);
+
+    }
+
+    public function belongsTo($model,$belongsToId)
+    {
+        $m=new $model;
+        $id=$this->$belongsToId;
+        return $m->find($id);
+
+    }
+
+
+
+
 
 }

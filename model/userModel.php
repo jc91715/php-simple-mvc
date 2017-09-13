@@ -2,7 +2,7 @@
 
 class userModel extends baseModel
 {
-    public $table='users';
+    public $table='backend_users';
 
 
     public function getName($val)
@@ -20,24 +20,8 @@ class userModel extends baseModel
     }
 
 
-    public function beforeCreate()
+    public function post()
     {
-
-    }
-
-    public function afterCreate()
-    {
-
-    }
-
-
-    public function beforUpdate()
-    {
-
-    }
-
-    public function afterUpdate()
-    {
-
+        return $this->hasMany('postModel','user_id');
     }
 }

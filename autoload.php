@@ -18,6 +18,12 @@ function my_autoloader($class) {
         case substr($class,-6)=='Widget':
             include 'widget/'.$class.'.php';
             break;
+        case substr($class,-5)=='Event':
+            include 'event/'.$class.'.php';
+            break;
+        case substr($class,-6)=='Listen':
+            include 'listen/'.$class.'.php';
+            break;
         default:
             include 'controllers/indexContrpller.php';
 
