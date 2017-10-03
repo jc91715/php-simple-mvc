@@ -49,6 +49,7 @@ abstract class baseModel
                 $queryString=$this->queryString.$this->condition.$this->orderBy.$this->limit;
             }
         }
+        var_dump($queryString);
         $data=$this->query($queryString);
         if($data==null){
             return null;
