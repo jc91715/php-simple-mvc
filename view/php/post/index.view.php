@@ -41,5 +41,8 @@
                 $(this).parent(':not(".next,.prev")').addClass('active')
             }
         })
+        if(window.location.pathname=='/post/posts'){
+            $('.pagination li:nth-child(2)').addClass('active')
+        }
     </script>
 <?php view('common/footer');?>

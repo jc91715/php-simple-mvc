@@ -402,7 +402,6 @@ abstract class baseModel
             $queryString = 'select * from '.$this->table.$this->condition.$this->orderBy;
 
         }
-        var_dump($queryString);
         $data=$this->query($queryString);
 
         return count($data);
