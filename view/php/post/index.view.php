@@ -12,5 +12,5 @@
         <?php } ?>
     </div>
 </div>
-
+<?php view('common/js');?>
 <?php view('common/footer');?>

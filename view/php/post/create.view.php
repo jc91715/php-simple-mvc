@@ -21,5 +21,16 @@
         </div>
     </form>
 </div>
+<?php view('common/js');?>
+<script src="https://cdn.bootcss.com/bootstrap-markdown/2.10.0/js/bootstrap-markdown.min.js"></script>
+<script src="https://cdn.bootcss.com/showdown/1.7.4/showdown.min.js"></script>
+<script>
+    $("#content").markdown({autofocus:true,savable:false})
+    var markdown = new showdown.Converter();
+    markdown.toHTML = function(val) {
+        return markdown.makeHtml(val);
+    }
 
+</script>
 <?php view('common/footer');?>
+
