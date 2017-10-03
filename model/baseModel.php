@@ -9,6 +9,8 @@ abstract class baseModel
     public $orderBy='';
     public $queryString;
 
+    public $limit='';
+
     public function __construct(Array $array=[])
     {
        $config = include 'config/database.php';
@@ -35,9 +37,9 @@ abstract class baseModel
     {
 
 
-        $queryString= 'select * from '.$this->table;
+        $queryString= 'select * from '.$this->table.$this->limit;
         if($this->condition){
-            $queryString = 'select * from '.$this->table.$this->condition.$this->orderBy;
+            $queryString = 'select * from '.$this->table.$this->condition.$this->orderBy.$this->limit;
 
         }
         if($this->queryString){
@@ -63,9 +65,9 @@ abstract class baseModel
 
     public function all()
     {
-        $queryString = 'select * from '.$this->table;
+        $queryString = 'select * from '.$this->table.$this->limit;
         if($this->condition){
-            $queryString = 'select * from '.$this->table.$this->condition;
+            $queryString = 'select * from '.$this->table.$this->condition.$this->orderBy.$this->limit;
 
         }
         $data=$this->query($queryString);
@@ -392,6 +394,33 @@ abstract class baseModel
 
         return $this->queryString;
 
+    }
+
+    public function count(){
+        $queryString = 'select COUNT(*) from '.$this->table;
+        if($this->condition){
+            $queryString = 'select * from '.$this->table.$this->condition.$this->orderBy;
+
+        }
+        var_dump($queryString);
+        $data=$this->query($queryString);
+
+        return count($data);
+
+    }
+
+    public function painate($number=3)
+    {
+
+
+        $this->limit=" limit 1,".$number;
+        if(isset($_GET['page'])){
+            $start=$_GET['page']*$number-$number+1;
+            $end=$_GET['page']*$number;
+            $this->limit=' limit '.$start.','.$number;
+
+        }
+        return $this->get();
     }
 
 

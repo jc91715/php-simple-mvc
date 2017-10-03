@@ -3,7 +3,12 @@
 include 'autoload.php';
 
 define('ROOT_PATH',dirname(__FILE__));
-$arrUrl=explode('/',$_SERVER['REQUEST_URI']);
+$url=$_SERVER['REQUEST_URI'];
+if(strpos($_SERVER['REQUEST_URI'],'?')){
+$url=substr($url,0,strpos($_SERVER['REQUEST_URI'],'?'));
+};
+
+$arrUrl=explode('/',$url);
 
 
 unset($arrUrl[0]);

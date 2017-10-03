@@ -7,9 +7,17 @@ class postController extends basicController
     public function posts(){
 
         $post=new postModel();
-        $posts=$post->get();
+        $number=18;
+        $posts=$post->painate($number);
+        $count=$post->count($posts);
+        $pageAll=ceil($count/$number);
+        if(isset($_GET['page'])){
+            $currPage=$_GET['page'];
+        }else{
+            $currPage=1;
+        }
         $title='文章列表';
-        view('post/index',compact('title','posts'));
+        view('post/index',compact('title','posts','pageAll','currPage'));
 
     }
     public function show($id){
