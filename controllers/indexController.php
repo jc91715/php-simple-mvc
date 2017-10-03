@@ -31,6 +31,6 @@ class indexController extends basicController
     public function show($id){
         $post=new postModel();
         $post=$post->find($id);
-        view('index',compact('title','post'));
+        view('post/show',compact('title','post'));
     }
 }
