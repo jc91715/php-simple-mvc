@@ -6,6 +6,7 @@ abstract class baseModel
     public $dbh;
     public $attribute;
     public $condition='';
+    public $orderBy='';
     public $queryString;
 
     public function __construct(Array $array=[])
@@ -36,7 +37,7 @@ abstract class baseModel
 
         $queryString= 'select * from '.$this->table;
         if($this->condition){
-            $queryString = 'select * from '.$this->table.$this->condition;
+            $queryString = 'select * from '.$this->table.$this->condition.$this->orderBy;
 
         }
         if($this->queryString){
@@ -367,7 +368,11 @@ abstract class baseModel
         return $this;
     }
 
+    public function orderBy($column){
+        $this->orderBy.=" order by {$column} desc ";
 
+        return $this;
+    }
 
 
     public function belongsToMany($model,$middle,$modelId,$parentId)

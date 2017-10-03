@@ -29,6 +29,8 @@ function my_autoloader($class) {
 
     }
 }
+include './common/Paser.php';
+
 spl_autoload_register('my_autoloader');
 
 /*

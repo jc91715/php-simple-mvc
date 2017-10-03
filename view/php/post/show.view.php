@@ -5,7 +5,7 @@
     <h1 class="text-center"><?php echo $post->title;?></h1>
 
     <pre>
-        <?php echo $post->content_html;?>
+        <?php echo $post->content;?>
     </pre>
 </div>
 <?php view('common/footer');?>

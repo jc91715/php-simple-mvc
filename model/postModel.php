@@ -24,6 +24,14 @@ class postModel extends baseModel
 
     public function extendQuery($query)
     {
-//        $query->where('published','<>','0');
+        $query->where('published','<>','0')->orderBy('id');
+    }
+
+    public function setContent($val){
+        $parser=new Parser();
+        $content =$parser->makeHtml($val);
+
+        return $content;
+
     }
 }
