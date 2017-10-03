@@ -24,7 +24,7 @@ class postModel extends baseModel
 
     public function extendQuery($query)
     {
-//        $query->where('published','<>','0')->orderBy('id');
+        $query->where('published','<>','0')->orderBy('id');
     }
 
     public function setContent($val){
