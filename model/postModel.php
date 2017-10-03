@@ -24,6 +24,6 @@ class postModel extends baseModel
 
     public function extendQuery($query)
     {
-        $query->where('published','<>','0');
+//        $query->where('published','<>','0');
     }
 }
