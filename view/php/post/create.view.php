@@ -1,6 +1,6 @@
 <?php view('common/header',compact('title'));?>
 <div class="container">
-    <form class="form-horizontal" method="post" onsubmit="convert()">
+    <form class="form-horizontal" method="post">
         <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">文章标题</label>
             <div class="col-sm-10">

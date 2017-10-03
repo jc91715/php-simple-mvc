@@ -29,8 +29,7 @@ class postModel extends baseModel
 
     public function setContent($val){
         $parser=new Parser();
-        $content =$parser->makeHtml($val);
-
+        $content =str_replace('"','\"',$parser->makeHtml($val));
         return $content;
 
     }

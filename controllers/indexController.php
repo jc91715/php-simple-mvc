@@ -16,7 +16,6 @@ class indexController extends basicController
         $title='最新文章';
         $post=new postModel();
         $post=$post->superUpdateOne();
-
         view('index',compact('title','post'));
 
     }

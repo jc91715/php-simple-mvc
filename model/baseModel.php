@@ -143,7 +143,8 @@ abstract class baseModel
 
 
 
-        $execString = sprintf("insert into %s (%s)values(%s)", $this->table, $kstr, $vstr);
+        $execString = sprintf("insert into %s (%s) values(%s)", $this->table, $kstr, $vstr);
+        var_dump($execString);
         $this->exec($execString);
 
         return new static($array);
