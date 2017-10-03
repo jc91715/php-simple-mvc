@@ -3,7 +3,7 @@
 <div class="container">
 
     <h1 class="text-center"><?php echo $post->title;?></h1>
-    <pre>
+    <pre style="border: none!important;">
         <?php echo $post->content;?>
 
     </pre>

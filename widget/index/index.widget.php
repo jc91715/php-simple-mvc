@@ -2,7 +2,7 @@
 
     <h1 class="text-center">最新文章（<?php echo $val->title;?>）</h1>
 
-    <pre>
+    <pre style="border: none!important;">
         <?php echo $val->content;?>
     </pre>
 
