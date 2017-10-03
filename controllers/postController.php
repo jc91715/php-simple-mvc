@@ -26,6 +26,7 @@ class postController extends basicController
             $_POST['slug']=rand();
             $_POST['published']='1';
             $post->create($_POST);
+            $this->redirect('/  ');
         }
 
         view('post/create');
