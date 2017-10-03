@@ -43,10 +43,10 @@ abstract class baseModel
 
         }
         if($this->queryString){
-            $queryString=$this->queryString;
+            $queryString=$this->queryString.$this->orderBy.$this->limit;
 
             if($this->condition){
-                $queryString=$this->queryString.$this->condition;
+                $queryString=$this->queryString.$this->condition.$this->orderBy.$this->limit;
             }
         }
         $data=$this->query($queryString);
