@@ -29,8 +29,37 @@ function my_autoloader($class) {
 
     }
 }
-include './common/Paser.php';
 
+//包含公共文件 在common文件夹
+/**
+ * @param $dir
+ */
+function listDir($dir)
+{
+    if(is_dir($dir))
+    {
+        if ($dh = opendir($dir))
+        {
+            while (($file = readdir($dh)) !== false)
+            {
+                if((is_dir($dir."/".$file)) && $file!="." && $file!="..")
+                {
+                    echo "<b><font color='red'>文件名：</font></b>",$file,"<br><hr>";
+                    listDir($dir."/".$file."/");
+                }
+                else
+                {
+                    if($file!="." && $file!="..")
+                    {
+                        include './common/'.$file;
+                    }
+                }
+            }
+            closedir($dh);
+        }
+    }
+}
+listDir("./common");
 spl_autoload_register('my_autoloader');
 
 /*
