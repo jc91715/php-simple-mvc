@@ -414,7 +414,7 @@ abstract class baseModel
 
         $this->limit=" limit 0,".$number;
         if(isset($_GET['page'])){
-            $start=$_GET['page']*$number-$number+1;
+            $start=$_GET['page']*$number-$number;
             $end=$_GET['page']*$number;
             $this->limit=' limit '.$start.','.$number;
 
