@@ -37,7 +37,7 @@ abstract class baseModel
     {
 
 
-        $queryString= 'select * from '.$this->table.$this->limit;
+        $queryString= 'select * from '.$this->table.$this->orderBy.$this->limit;
         if($this->condition){
             $queryString = 'select * from '.$this->table.$this->condition.$this->orderBy.$this->limit;
 
