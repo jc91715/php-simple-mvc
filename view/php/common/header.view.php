@@ -13,7 +13,7 @@
 <body>
 <div class="container">
 
-    <ul class="nav nav-pills" style="background-color: #6a7c3d;">
+    <ul class="nav nav-pills" style="background-color: #96ce9a;">
         <li role="presentation"><a href="/index/index">首页</a></li>
         <li role="presentation"><a href="/index/posts">归档</a></li>
 <!--        <li role="presentation"><a href="/index/show">show</a></li>-->
