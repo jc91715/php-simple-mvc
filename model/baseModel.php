@@ -408,7 +408,7 @@ abstract class baseModel
 
     }
 
-    public function painate($number=3)
+    public function painate($number=8)
     {
 
 

@@ -11,26 +11,7 @@
             </div>
         <?php } ?>
     </div>
-    <ul class="pagination">
-
-    <li class="prev"><a href="/post/posts?page=<?php if($currPage==1){echo$currPage=1;}
-                                            else{
-                                                echo $currPage-1;
-                                            }
-
-                                            ?>">&laquo;</a></li>
-
-    <?php for ($i=1;$i<$pageAll+1;$i++ ){ ?>
-        <li class="ac"><a href="/post/posts?page=<?php echo $i;?>"><?php echo $i;?></a></li>
-
-<?php }?>
-    <li class="next"><a href="/post/posts?page=<?php if($currPage==$pageAll)
-                                        {echo $currPage=$pageAll;}
-                                        else{
-                                            echo $currPage+1;
-                                        }
-                                        ?>">&raquo;</a></li>
-    </ul>
+    <?php echo $pagiHtml;?>
 
 
 </div>

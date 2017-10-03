@@ -16,8 +16,11 @@ class postController extends basicController
         }else{
             $currPage=1;
         }
+        //生成分页代码
+        $pagi=new Paginate($pageAll,$currPage,'post/posts');
+        $pagiHtml=$pagi->pagiHtml;
         $title='文章列表';
-        view('post/index',compact('title','posts','pageAll','currPage'));
+        view('post/index',compact('title','posts','pagiHtml'));
 
     }
     public function show($id){
