@@ -41,7 +41,7 @@
                 $(this).parent(':not(".next,.prev")').addClass('active')
             }
         })
-        if(window.location.pathname=='/post/posts'){
+        if(window.location.pathname=='/post/posts' && window.location.search==""){
             $('.pagination li:nth-child(2)').addClass('active')
         }
     </script>

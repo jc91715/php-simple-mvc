@@ -7,7 +7,7 @@ class postController extends basicController
     public function posts(){
 
         $post=new postModel();
-        $number=18;
+        $number=3;
         $posts=$post->painate($number);
         $count=$post->count($posts);
         $pageAll=ceil($count/$number);
