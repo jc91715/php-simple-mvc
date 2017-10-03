@@ -15,4 +15,15 @@ class postModel extends baseModel
        return $this->belongsTo('userModel','user_id');
     }
 
+
+    public function categories()
+    {
+        return $this->belongsToMany('categoryModel','rainlab_blog_posts_categories','category_id','post_id');
+    }
+
+
+    public function extendQuery($query)
+    {
+        $query->where('published','<>','0');
+    }
 }

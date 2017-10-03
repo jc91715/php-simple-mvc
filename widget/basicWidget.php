@@ -7,8 +7,6 @@ abstract class basicWidget
 
 
         $val=$this->display($val);
-
-
         if(count($path)==1){
             $widgetPath='widget/'.$path[0].'/'.$path[0].'.widget.php';
         }else{

@@ -7,18 +7,39 @@ $arrUrl=explode('/',$_SERVER['REQUEST_URI']);
 
 
 unset($arrUrl[0]);
+//控制器
 if(!isset($arrUrl[1])|empty($arrUrl[1])){
     $arrUrl[1]='index';
 }
 $c=$arrUrl[1].'Controller';
 unset($arrUrl[1]);
+
+//方法名
 if(!isset($arrUrl[2])|empty($arrUrl[2])){
     $arrUrl[2]='index';
 }
+
 $a=$arrUrl[2];
 unset($arrUrl[2]);
+
+//参数
+
+if(!isset($arrUrl[3])|empty($arrUrl[3])){
+    $args=[];
+}else{
+    $args[]=$arrUrl[3];
+    unset($arrUrl[3]);
+}
+
+
 
 
 $controller=new $c();
 
-$controller->$a();
+try{
+    call_user_func_array(array($controller,$a),$args);
+
+}catch (Exception $e){
+    echo '页面不存在';
+}
+

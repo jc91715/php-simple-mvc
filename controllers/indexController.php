@@ -13,23 +13,24 @@ class indexController extends basicController
 //          echo PHP_EOL;
 //      }
 //        $post=new postModel();
-        $title='index.view.php 原生模板加载成功';
-
-        view('index',compact('title'));
-
-    }
-
-    public function create(){
-
-//        $user=new userModel();
-
-        $title='create.view.php 加载成功';
-        view('create',compact('title'));
+        $title='最新文章';
+        $post=new postModel();
+        $post=$post->superUpdateOne();
+        view('index',compact('title','post'));
 
     }
-    public function show(){
 
-        $title='show.html 自定义模板加载成功';
-        view('show',compact('title'));
+    public function posts(){
+
+        $post=new postModel();
+        $posts=$post->get();
+        $title='文章列表';
+        view('post/index',compact('title','posts'));
+
+    }
+    public function show($id){
+        $post=new postModel();
+        $post=$post->find($id);
+        view('index',compact('title','post'));
     }
 }

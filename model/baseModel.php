@@ -5,6 +5,8 @@ abstract class baseModel
     public $table;
     public $dbh;
     public $attribute;
+    public $condition='';
+    public $queryString;
 
     public function __construct(Array $array=[])
     {
@@ -21,15 +23,29 @@ abstract class baseModel
 
 
 
-        $this->init();
+        $this->init($this);
     }
 
-    public function init(){}
+    public function init($query){
+        $this->extendQuery($query);
+    }
 
     public function get()
     {
-        $queryString = 'select * from '.$this->table;
 
+
+        $queryString= 'select * from '.$this->table;
+        if($this->condition){
+            $queryString = 'select * from '.$this->table.$this->condition;
+
+        }
+        if($this->queryString){
+            $queryString=$this->queryString;
+
+            if($this->condition){
+                $queryString=$this->queryString.$this->condition;
+            }
+        }
         $data=$this->query($queryString);
         if($data==null){
             return null;
@@ -47,7 +63,10 @@ abstract class baseModel
     public function all()
     {
         $queryString = 'select * from '.$this->table;
+        if($this->condition){
+            $queryString = 'select * from '.$this->table.$this->condition;
 
+        }
         $data=$this->query($queryString);
         if($data==null){
             return null;
@@ -78,6 +97,19 @@ abstract class baseModel
 
     }
 
+    public function first(){
+        return $this->attribute[0];
+    }
+
+    public function superUpdateOne()
+    {
+        $queryString='select * from '.$this->table.' order by id desc limit 1';
+        $data=$this->query($queryString)[0];
+        if($data==null){
+            return null;
+        }
+        return new static($data);
+    }
     public function delete($id){
         $execString='delete from '.$this->table.'where id='.$id;
 
@@ -205,11 +237,10 @@ abstract class baseModel
         {
             return json_encode($this->toArray());
         }
-            return json_encode($this->attribute);
+        return json_encode($this->attribute);
     }
     public function __call($name,$arguments)
     {
-        // TODO: Implement __clone() method.
         $before=substr($name,0,3);
         $A=substr($name,3);
         $a=lcfirst($A);
@@ -277,6 +308,10 @@ abstract class baseModel
     {
         $queryString = 'select * from '.$this->table.' where '.$hasManyId.' ='.$id;
 
+        if($this->condition){
+            $queryString = 'select * from '.$this->table.' where '.$hasManyId.' ='.$id.' and '.$this->condition;
+
+        }
         $data=$this->query($queryString);
 
 
@@ -296,8 +331,8 @@ abstract class baseModel
     {
         $m=new $model;
         $id=$this->id;
-
-        return $m->selectHasMany($hasManyId,$id);
+        $m->condition=' where '.$hasManyId.' ='.$id;
+        return $m;
 
     }
 
@@ -309,6 +344,50 @@ abstract class baseModel
 
     }
 
+
+
+    public function where($name,$val,$condition=null)
+    {
+        if($condition==null){
+            $condition='=';
+        }else{
+            $temp=$condition;
+            $condition=$val;
+            $val=$temp;
+
+        }
+        if($this->condition || $this->queryString){
+            $this->condition.= ' and '.$name.$condition.$val;
+
+        }else{
+            $this->condition.= ' where '.$name.$condition.$val;
+
+        }
+
+        return $this;
+    }
+
+
+
+
+    public function belongsToMany($model,$middle,$modelId,$parentId)
+    {
+        $m=new $model;
+
+        $parent_id=$this->id;
+        $m->queryString="select ".$m->table.'.*'." from ".$m->table." left join ".$middle." on ".$m->table.'.id'."= ".$middle.'.'.$modelId." where ".$middle.'.'.$parentId ." = ".$parent_id;
+        return $m;
+    }
+
+
+    public function queryString($query=null)
+    {
+
+
+
+        return $this->queryString;
+
+    }
 
 
 

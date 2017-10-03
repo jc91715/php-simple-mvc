@@ -1,5 +1,7 @@
 <div class="container">
-    <div class="jumbotron">
-        <h1 class="text-center"><?php echo $val;?></h1>
-    </div>
+        <h1 class="text-center"><?php echo $val->title;?></h1>
+
+    <pre>
+        <?php echo $val->content_html;?>
+    </pre>
 </div>
