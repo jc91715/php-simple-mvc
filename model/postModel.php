@@ -34,6 +34,10 @@ class postModel extends baseModel
 
     }
 
+    public function setTitle($val){
+        return htmlspecialchars($val,ENT_QUOTES);
+    }
+
     public function getContent($val){
         if($this->content_html){
             return $this->content_html;

@@ -18,6 +18,7 @@
     <ul class="nav nav-pills" style="background-color: #96ce9a;">
         <li role="presentation"><a href="/index/index">首页</a></li>
         <li role="presentation"><a href="/post/posts">归档</a></li>
+        <li role="presentation"><a href="/index/about">关于</a></li>
 <!--        <li role="presentation"><a href="/index/show">show</a></li>-->
         <li role="presentation" class="pull-right"><a href="/post/create">创建文章</a></li>
     </ul>

@@ -32,7 +32,6 @@ class postController extends basicController
     public function create()
     {
         if(isset($_POST['content'])){
-
             $post=new postModel();
             $_POST['slug']=rand();
             $_POST['published']='1';

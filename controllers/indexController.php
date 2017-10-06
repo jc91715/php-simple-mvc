@@ -20,4 +20,9 @@ class indexController extends basicController
 
     }
 
+    public function about()
+    {
+        view('about');
+    }
+
 }
