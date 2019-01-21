@@ -2,7 +2,7 @@
 
 return [
     'host' =>'localhost',
-    'dbname' =>'demo5',
-    'username' => 'homestead',
-    'password' =>'secret'
+    'dbname' =>'simple-mvc',
+    'username' => 'estuser',
+    'password' =>'root'
 ];
