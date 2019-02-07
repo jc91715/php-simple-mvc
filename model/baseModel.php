@@ -13,11 +13,8 @@ abstract class baseModel
 
     public function __construct(Array $array=[])
     {
-       $config = include 'config/database.php';
-        $this->dbh = new PDO(
-            "mysql:host=localhost;dbname={$config['dbname']};charset=utf8", $config['username'], $config['password']
-            , [PDO::ATTR_PERSISTENT => true]
-        );
+        $this->dbh = mysqlModel::instance();
+
 
         if(!empty($array)){
             $this->attribute=$array;
