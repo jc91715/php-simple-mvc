@@ -30,7 +30,7 @@ abstract class baseModel
         $this->extendQuery($query);
     }
 
-    public function get()
+    public function get($default=false)
     {
 
 
@@ -51,8 +51,12 @@ abstract class baseModel
             return null;
         }
         $arr=[];
-        foreach ($data as $model){
-            $arr[]=(new static($model));
+        if($default){
+            $arr=$data;
+        }else{
+            foreach ($data as $model){
+                $arr[]=(new static($model));
+            }
         }
 
         return $arr;
@@ -405,7 +409,7 @@ abstract class baseModel
 
     }
 
-    public function painate($number=8)
+    public function painate($number=8,$default=false)
     {
 
 
@@ -416,7 +420,7 @@ abstract class baseModel
             $this->limit=' limit '.$start.','.$number;
 
         }
-        return $this->get();
+        return $this->get($default);
     }
 
 
