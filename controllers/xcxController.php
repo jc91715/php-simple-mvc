@@ -7,7 +7,7 @@ class xcxController extends basicController
     public function posts(){
 
         $post=new postModel();
-        $number=10;
+        $number=18;
         $posts=$post->painate($number,true);
 //        $count=$post->count($posts);
 //        $pageAll=ceil($count/$number);
